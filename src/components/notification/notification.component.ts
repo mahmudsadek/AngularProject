@@ -5,6 +5,7 @@ import { Post } from '../../Interfaces/post';
 import { AuthService } from '../../Services/auth.service';
 import { ActivatedRoute } from '@angular/router';
 import { formatDate } from '@angular/common';
+import { Notification } from '../../Interfaces/notifaction';
 
 
 @Component({
@@ -24,6 +25,16 @@ export class NotificationComponent {
     { imageUrl: '../../assets/Images/hagar.jpg', name: 'John Doe', email: 'john@example.com' },
     { imageUrl: '../../assets/Images/hagar.jpg', name: 'Jane Smith', email: 'jane@example.com' },
   ];
-    
+
+  notfications:Notification[] = [];
+  constructor(private authService:AuthService){}
+
+  getAllNotification() {
+    let email:string = localStorage.getItem("email");
+    this.authService.getCurrentUser(email).subscribe({
+      next: (user) => {
+        this.loggedInUserId = user.userId;
+  }})
+
 }
 
